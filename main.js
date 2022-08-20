@@ -1,1 +1,1 @@
-console.log("Hello");
+(()=>{"use strict";console.log("Hello"),document.querySelector(".add-task-btn").addEventListener("click",(function(){const t=document.createElement("input");t.type="text";const e=document.createElement("button");e.textContent="Add";const n=document.createElement("button");n.textContent="Cancel";const c=document.querySelector(".add-task");c.appendChild(t),c.appendChild(e),c.appendChild(n)}))})();
