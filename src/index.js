@@ -16,6 +16,9 @@ const loadProject = (() => {
 
 const addTaskBtn = document.querySelector('.add-task-btn');
 addTaskBtn.addEventListener('click', addTaskArea);
+const addTask = document.querySelector('.add-task');
+const display = document.querySelector('.display');
+
 function addTaskArea(){
     const taskName = document.createElement('input');
     taskName.type = 'text';
@@ -23,12 +26,36 @@ function addTaskArea(){
     addBtn.textContent = 'Add';
     const cancelBtn = document.createElement('button');
     cancelBtn.textContent = 'Cancel';
-    const addTask = document.querySelector('.add-task');
+    addTaskBtn.style.visibility = 'hidden';
+    addTask.removeChild(addTaskBtn);
+    addTask.textContent = "";
     addTask.appendChild(taskName);
     addTask.appendChild(addBtn);
     addTask.appendChild(cancelBtn);
+    
+    addBtn.addEventListener('click', () => createTask(taskName.value))
 }
 
 function createTask(taskName){
-    return new Task(taskName);
+    const task = new Task(taskName);
+    console.log(task);
+    
+    const taskDiv = document.createElement('div');
+
+    const checkbox = document.createElement('input');
+    checkbox.id = 'task';
+    checkbox.type = 'checkbox';
+    checkbox.name = 'task';
+    const taskLabel = document.createElement('label');
+    taskLabel.setAttribute('for','task')
+    taskLabel.textContent = task.title;
+    
+    taskDiv.appendChild(checkbox);
+    taskDiv.appendChild(taskLabel);
+    
+    addTask.textContent = "";
+    addTask.appendChild(addTaskBtn);
+    addTaskBtn.style.visibility = 'visible';
+    
+    display.appendChild(taskDiv);
 }
