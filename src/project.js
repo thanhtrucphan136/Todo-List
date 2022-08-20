@@ -1,7 +1,7 @@
 import {toDate, isToday, isThisWeek, subDays} from 'date-fns'
-import { formatDate } from './task'
+import Task from './task';
 
-export default class project{
+export default class Project{
     constructor(name){
         this.name = name;
         this.tasks = []; 
@@ -24,17 +24,17 @@ export default class project{
     }
 
     getTask(taskName){
-        return this.tasks.find((task) => task.name === taskName);
+        return this.tasks.find((task) => task.getTitle() === taskName);
     }
     containsTask(taskName){
-        return this.tasks.some((task) => task.name === taskName);
+        return this.tasks.some((task) => task.getTitle() === taskName);
     }
     addTask(newTask){
         if (this.tasks.find((task) => task.name === newTask.name)) return;
         this.taks.push(newTask);
     }
     removeTask(taskName){
-        this.task = this.tasks.filter((task) => task.name !== taskName);
+        this.task = this.tasks.filter((task) => task.getTitle() !== taskName);
     }
 
     getTodayTasks(){
