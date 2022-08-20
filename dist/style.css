@@ -1,0 +1,30 @@
+body{
+    margin: 0;
+}
+h1{
+    width: 100%;
+    margin: 0;
+    background-color: rgb(162, 162, 124);
+    color: rgb(234, 234, 228);
+}
+
+.main-content{
+    display: flex;
+}
+.left-content{
+    background-color: rgb(234, 234, 228);
+    width: 200px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+.default-projects{
+    display: flex;
+    flex-direction: column;
+}
+.right-content{
+    padding-left: 20px;
+}
