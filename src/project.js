@@ -30,7 +30,7 @@ export default class Project{
         return this.tasks.some((task) => task.getTitle() === taskName);
     }
     addTask(newTask){
-        if (this.tasks.find((task) => task.name === newTask.name)) return;
+        if (this.tasks.find((task) => task.title === newTask.title)) return;
         this.tasks.push(newTask);
     }
     removeTask(taskName){
