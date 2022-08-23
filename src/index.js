@@ -36,7 +36,7 @@ function createTask(taskName){
     }
     const task = new Task(taskName);
     console.log(task);
-
+    addTaskToProject(task);
     const taskDiv = document.createElement('div');
     const checkbox = document.createElement('input');
     checkbox.id = 'task';
@@ -55,11 +55,11 @@ function createTask(taskName){
 }
 
 const addProjectBtn = document.querySelector('.add-project-btn');
-addProjectBtn.addEventListener('click', addProjectArea);
+addProjectBtn.addEventListener('click', createProjectArea);
 const addProject = document.querySelector('.add-project');
 const userProjects = document.querySelector('.user-projects');
 
-function addProjectArea(){
+function createProjectArea(){
     const projectName = document.createElement('input');
     projectName.type = 'text';
     const addBtn = document.createElement('button');
@@ -74,10 +74,10 @@ function addProjectArea(){
     addProject.appendChild(cancelBtn);
 
     addBtn.addEventListener('click', () => createProject(projectName.value))
-    cancelBtn.addEventListener('click', clearAddProjectArea);
+    cancelBtn.addEventListener('click', clearCreateProjectArea);
 
 }
-function clearAddProjectArea(){
+function clearCreateProjectArea(){
     addProject.textContent = "";
     addProjectBtn.style.visibility = 'visible';
     addProject.appendChild(addProjectBtn);
@@ -92,18 +92,20 @@ function createProject(projectName){
         return
     }
     const project = new Project(projectName);
+    todoList.addProject(project);
+    console.log(listOfProjects);
     const projectInput = document.createElement('button');
     projectInput.type = 'text';
     projectInput.classList.add('project-btn');
     projectInput.textContent = project.name;
-    clearAddProjectArea();
+    clearCreateProjectArea();
     userProjects.appendChild(projectInput);
     loadProject();
 }
-
+const projectName = document.querySelector('h2');
 function loadProject(){
     const projectBtns = document.querySelectorAll('.project-btn');
-    const projectName = document.querySelector('h2');
+    
     projectBtns.forEach((button) => {
         button.addEventListener('click', () => {
             projectName.textContent = button.textContent;
@@ -111,3 +113,16 @@ function loadProject(){
     });
 }
 loadProject();
+
+const todoList = new TodoList();
+const listOfProjects = todoList.getProjects();
+console.log(listOfProjects);
+
+function addTaskToProject(newTask){
+    listOfProjects.forEach((project) => {
+        if (project.name == projectName.textContent){
+            project.addTask(newTask);
+            console.log(project);
+        }
+    });
+}
