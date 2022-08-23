@@ -37,6 +37,10 @@ function createTask(taskName){
     const task = new Task(taskName);
     console.log(task);
     addTaskToProject(task);
+    createTaskDiv(task);
+}
+
+function createTaskDiv(task){
     const taskDiv = document.createElement('div');
     const checkbox = document.createElement('input');
     checkbox.id = 'task';
@@ -44,7 +48,7 @@ function createTask(taskName){
     checkbox.name = 'task';
     const taskLabel = document.createElement('label');
     taskLabel.setAttribute('for','task')
-    taskLabel.textContent = task.title;
+    taskLabel.textContent = task.getTitle();
     
     clearAddTaskArea();
     
@@ -105,10 +109,11 @@ function createProject(projectName){
 const projectName = document.querySelector('h2');
 function loadProject(){
     const projectBtns = document.querySelectorAll('.project-btn');
-    
     projectBtns.forEach((button) => {
         button.addEventListener('click', () => {
             projectName.textContent = button.textContent;
+            display.innerHTML = '';
+            getProjectTasks();
         });
     });
 }
@@ -126,3 +131,18 @@ function addTaskToProject(newTask){
         }
     });
 }
+
+function getProjectTasks(){
+    listOfProjects.forEach((project) => {
+        if (project.getName() == projectName.textContent){
+            console.log(project);
+            const projectTasks = project.getTasks();
+            projectTasks.forEach((task) => {
+                createTaskDiv(task)
+            });
+        }
+    })
+}
+
+
+
