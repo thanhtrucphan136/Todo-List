@@ -30,8 +30,8 @@ export default class Task{
     }
 
     formatDate(){
-        const day = this.dueDate.split('/')[0];
-        const month = this.dueDate.split('/')[1];
+        const day = this.dueDate.split('/')[1];
+        const month = this.dueDate.split('/')[0];
         const year = this.dueDate.split('/')[2];
         return `${month}/${day}/${year}`;
     }
