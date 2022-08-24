@@ -1,11 +1,16 @@
 import Task from "./task";
 import Project from "./project";
 import TodoList from "./todoList";
+import { format } from "date-fns";
 
 const addTaskBtn = document.querySelector('.add-task-btn');
 addTaskBtn.addEventListener('click', addTaskArea);
 const addTask = document.querySelector('.add-task');
 const display = document.querySelector('.display');
+
+const todoList = new TodoList();
+const listOfProjects = todoList.getProjects();
+console.log(listOfProjects);
 
 function addTaskArea(){
     const taskName = document.createElement('input');
@@ -42,20 +47,55 @@ function createTask(taskName){
 
 function createTaskDiv(task){
     const taskDiv = document.createElement('div');
+
     const checkbox = document.createElement('input');
     checkbox.id = 'task';
     checkbox.type = 'checkbox';
     checkbox.name = 'task';
+
     const taskLabel = document.createElement('label');
     taskLabel.setAttribute('for','task')
     taskLabel.textContent = task.getTitle();
+    
+    const dueDateDiv = document.createElement('div');
+    dueDateDiv.classList.add('dueDate-div');
+    const dueDate = document.createElement('button');
+    dueDate.textContent = task.getDueDate();
+    //dueDate.classList.add('dueDate-btn');
+    //dueDate.value = task.getDueDate();
+
+    dueDateDiv.appendChild(dueDate);
+
+    const dueDateInput = document.createElement('input');
+    dueDateInput.type = 'date';
+    //dueDateInput.defaultValue = '0000-00-00';
+    console.log(dueDateInput.defaultValue);
+    dueDate.addEventListener('click', ()=> {
+        dueDateDiv.removeChild(dueDate);
+        dueDateDiv.appendChild(dueDateInput);
+    })
+
+    dueDateInput.addEventListener('input', () => setNewDueDate(dueDateDiv, dueDate, dueDateInput, task));
+    
+    
     
     clearAddTaskArea();
     
     taskDiv.appendChild(checkbox);
     taskDiv.appendChild(taskLabel);
-    
+    taskDiv.appendChild(dueDateDiv);
     display.appendChild(taskDiv);
+}
+
+function setNewDueDate(div, dueDate, input, task){
+    console.log(input.value);
+    let inputValue = input.value
+    let newDueDate = format(new Date(inputValue), 'MM/dd/yyyy');
+    task.setDueDate(newDueDate);
+    dueDate.textContent = task.formatDate();
+    console.log(task.formatDate());
+    div.removeChild(input);
+    div.appendChild(dueDate);
 }
 
 const addProjectBtn = document.querySelector('.add-project-btn');
@@ -118,10 +158,6 @@ function loadProject(){
     });
 }
 loadProject();
-
-const todoList = new TodoList();
-const listOfProjects = todoList.getProjects();
-console.log(listOfProjects);
 
 function addTaskToProject(newTask){
     listOfProjects.forEach((project) => {
