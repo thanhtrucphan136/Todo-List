@@ -47,42 +47,54 @@ function createTask(taskName){
 
 function createTaskDiv(task){
     const taskDiv = document.createElement('div');
+    taskDiv.classList.add('task-div');
 
     const checkbox = document.createElement('input');
     checkbox.id = 'task';
     checkbox.type = 'checkbox';
     checkbox.name = 'task';
+    checkbox.classList.add('checkbox');
 
     const taskLabel = document.createElement('label');
     taskLabel.setAttribute('for','task')
     taskLabel.textContent = task.getTitle();
+    taskLabel.classList.add('task-label');
     
+    const taskOnlyContainer = document.createElement('div');
+    taskOnlyContainer.appendChild(checkbox);
+    taskOnlyContainer.appendChild(taskLabel);
     const dueDateDiv = document.createElement('div');
     dueDateDiv.classList.add('dueDate-div');
     const dueDate = document.createElement('button');
     dueDate.textContent = task.getDueDate();
-    //dueDate.classList.add('dueDate-btn');
-    //dueDate.value = task.getDueDate();
+    dueDate.classList.add('dueDate-btn');
 
     dueDateDiv.appendChild(dueDate);
+    if (projectName.textContent == 'Today' || projectName.textContent == 'This Week'){
+        taskDiv.appendChild(taskOnlyContainer);
+        taskDiv.appendChild(dueDateDiv);
+        display.appendChild(taskDiv);
+        return; 
+    }
+    
+    else{
+        const dueDateInput = document.createElement('input');
+        dueDateInput.type = 'date';
+        console.log(dueDateInput.defaultValue);
+        dueDate.addEventListener('click', ()=> {
+            dueDateDiv.removeChild(dueDate);
+            dueDateDiv.appendChild(dueDateInput);
+        })
 
-    const dueDateInput = document.createElement('input');
-    dueDateInput.type = 'date';
-    //dueDateInput.defaultValue = '0000-00-00';
-    console.log(dueDateInput.defaultValue);
-    dueDate.addEventListener('click', ()=> {
-        dueDateDiv.removeChild(dueDate);
-        dueDateDiv.appendChild(dueDateInput);
-    })
-
-    dueDateInput.addEventListener('input', () => setNewDueDate(dueDateDiv, dueDate, dueDateInput, task));
+        dueDateInput.addEventListener('input', () => {
+            setNewDueDate(dueDateDiv, dueDate, dueDateInput, task)
+            loadProject();
+        });
+        
     
-    
-    
-    clearAddTaskArea();
-    
-    taskDiv.appendChild(checkbox);
-    taskDiv.appendChild(taskLabel);
+        clearAddTaskArea();
+    }
+    taskDiv.appendChild(taskOnlyContainer);
     taskDiv.appendChild(dueDateDiv);
     display.appendChild(taskDiv);
 }
@@ -152,6 +164,7 @@ function loadProject(){
     projectBtns.forEach((button) => {
         button.addEventListener('click', () => {
             projectName.textContent = button.textContent;
+            addTask.appendChild(addTaskBtn);
             display.innerHTML = '';
             getProjectTasks();
         });
@@ -165,14 +178,32 @@ function addTaskToProject(newTask){
             project.addTask(newTask);
             console.log(project);
         }
+        if (project.name == 'Today'){
+            project.addTask(newTask);
+        }
+        if (project.name == 'This Week'){
+            project.addTask(newTask);
+        }
     });
 }
 
 function getProjectTasks(){
+    let projectTasks = [];
     listOfProjects.forEach((project) => {
         if (project.getName() == projectName.textContent){
-            console.log(project);
-            const projectTasks = project.getTasks();
+            if (project.getName() == 'Today'){
+                projectTasks = project.getTodayTasks();
+                addTask.removeChild(addTaskBtn);
+                console.log(project);
+            }else if (project.getName() == 'This Week') {
+                projectTasks = project.getThisWeekTasks();
+                addTask.removeChild(addTaskBtn);
+                console.log(project);
+            }else{
+                console.log(project);
+                projectTasks = project.getTasks();
+            }
+            
             projectTasks.forEach((task) => {
                 createTaskDiv(task)
             });
