@@ -38,16 +38,18 @@ export default class Project{
     }
 
     getTodayTasks(){
-        return this.tasks.filter((task) => {
+        this.tasks = this.tasks.filter((task) => {
             const taskDate = new Date(task.formatDate());
             return isToday(toDate(taskDate));
         });
+        return this.tasks;
     }
 
     getThisWeekTasks(){
-        return this.tasks.filter((task) => {
+        this.tasks = this.tasks.filter((task) => {
             const taskDate = new Date (task.formatDate());
             return isThisWeek(subDays(toDate(taskDate),1));
         });
+        return this.tasks;
     }
 }
