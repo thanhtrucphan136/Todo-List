@@ -28,3 +28,21 @@ h1{
 .right-content{
     padding-left: 20px;
 }
+
+.task-div{
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.dueDate-btn{
+    width: 121px;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.dueDate-btn:hover{
+    background-color: rgb(232, 227, 227);
+}
