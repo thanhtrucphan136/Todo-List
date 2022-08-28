@@ -102,7 +102,10 @@ function createTaskDiv(task){
 function setNewDueDate(div, dueDate, input, task){
     console.log(input.value);
     let inputValue = input.value
-    let newDueDate = format(new Date(inputValue), 'MM/dd/yyyy');
+    let newDueDate = new Date(inputValue);
+    newDueDate.setMinutes(newDueDate.getMinutes() + newDueDate.getTimezoneOffset());
+    newDueDate = format(newDueDate, 'MM/dd/yyyy');
+    console.log(newDueDate);
     task.setDueDate(newDueDate);
     dueDate.textContent = task.formatDate();
     console.log(task.formatDate());
