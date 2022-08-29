@@ -37,7 +37,7 @@ export default class TodoList{
         );
         this.projects.splice(this.projects.indexOf(projecToRemove),1);
     }
-
+/*
     updateTodayProject(){
         this.getProject('Today').tasks = [];
 
@@ -74,5 +74,5 @@ export default class TodoList{
                 toDate(new Date(taskB.formartDate()))
             ))
         )
-    }
+    }*/
 }
