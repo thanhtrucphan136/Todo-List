@@ -1,11 +1,12 @@
 import Task from "./task";
 import Project from "./project";
 import TodoList from "./todoList";
-import { format } from "date-fns";
+import { add, format } from "date-fns";
 
 const addTaskBtn = document.querySelector('.add-task-btn');
 addTaskBtn.addEventListener('click', addTaskArea);
 const addTask = document.querySelector('.add-task');
+addTask.classList.add('add-task');
 const display = document.querySelector('.display');
 
 const todoList = new TodoList();
@@ -14,7 +15,7 @@ console.log(listOfProjects);
 
 function addTaskArea(){
     const taskName = document.createElement('input');
-    taskName.classList.add('input');
+    taskName.classList.add('input-task');
     taskName.type = 'text';
 
     const addBtn = document.createElement('button');
@@ -26,7 +27,7 @@ function addTaskArea(){
     cancelBtn.textContent = 'Cancel';
 
     const addDiv = document.createElement('div');
-    addDiv.classList.add('add-div');
+    addDiv.classList.add('add-div-task');
     addDiv.appendChild(addBtn);
     addDiv.appendChild(cancelBtn);
 
@@ -35,6 +36,7 @@ function addTaskArea(){
     addTask.textContent = "";
     addTask.appendChild(taskName);
     addTask.appendChild(addDiv);
+    
     
     addBtn.addEventListener('click', () => createTask(taskName.value))
     cancelBtn.addEventListener('click', clearAddTaskArea);
@@ -71,6 +73,7 @@ function createTaskDiv(task){
     taskLabel.classList.add('task-label');
     
     const taskOnlyContainer = document.createElement('div');
+    taskOnlyContainer.classList.add('task-container');
     taskOnlyContainer.appendChild(checkbox);
     taskOnlyContainer.appendChild(taskLabel);
     const dueDateDiv = document.createElement('div');
@@ -90,6 +93,7 @@ function createTaskDiv(task){
     else{
         const dueDateInput = document.createElement('input');
         dueDateInput.type = 'date';
+        dueDateInput.classList.add('date-picker');
         console.log(dueDateInput.defaultValue);
         dueDate.addEventListener('click', ()=> {
             dueDateDiv.removeChild(dueDate);
@@ -130,7 +134,7 @@ const userProjects = document.querySelector('.user-projects');
 
 function createProjectArea(){
     const projectName = document.createElement('input');
-    projectName.classList.add('input');
+    projectName.classList.add('input-project');
     projectName.type = 'text';
 
     const addBtn = document.createElement('button');
