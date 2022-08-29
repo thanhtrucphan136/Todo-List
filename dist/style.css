@@ -4,29 +4,112 @@ body{
 h1{
     width: 100%;
     margin: 0;
-    background-color: rgb(162, 162, 124);
-    color: rgb(234, 234, 228);
+    /*background-color: rgb(154, 179, 218);*/
+    background-color: #385f7a;
+    color: #fefcfe;
+    padding: 13px 0px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 30px;
 }
 
 .main-content{
     display: flex;
 }
 .left-content{
-    background-color: rgb(234, 234, 228);
-    width: 200px;
+    background-color: #fefcfe;
+    width: 300px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 20px;
+   /* border-right: 1px solid #8ed0ac;*/
 }
 
+.right-content{
+    padding-left: 20px;
+    background-color: #ececec;
+    width: 100%;
+}
 .default-projects{
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
-.right-content{
-    padding-left: 20px;
+
+.project-btn{
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    background-color: #fefcfe;
+    color: rgb(26, 92, 107);
+    text-align: left;
+    cursor: pointer;
+    margin-left: 10px;
+    width: 200px;
+}
+.project-btn:hover{
+    background-color:#385f7a;
+    color: white;
+}
+
+h3{
+    color: #385f7a;
+    padding: 0 10px;
+}
+
+.add-project-btn{
+    margin-left: 15px;
+    margin-top: 15px;
+    border: none;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefcfe;
+    color: #385f7a;   
+    border: 1px solid  #385f7a;
+    width: 200px;
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+
+.add-project-btn:hover{
+    background-color:#385f7a;
+    color: white;
+}
+
+
+.input{
+    width: 195px;
+    height: 30px;
+    margin: 15px;
+    border: 1px solid  #385f7a;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.add-div{
+    margin-left: 15px;
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+
+.add-btn, .cancel-btn{
+    width: 95px;
+    padding: 5px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+.add-btn{
+    background-color: #045b04;
+    color:#fefcfe
+}
+.cancel-btn{
+    background-color: #680303;
+    color: #fefcfe;
 }
 
 .task-div{

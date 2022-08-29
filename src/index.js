@@ -14,17 +14,27 @@ console.log(listOfProjects);
 
 function addTaskArea(){
     const taskName = document.createElement('input');
+    taskName.classList.add('input');
     taskName.type = 'text';
+
     const addBtn = document.createElement('button');
+    addBtn.classList.add('add-btn');
     addBtn.textContent = 'Add';
+
     const cancelBtn = document.createElement('button');
+    cancelBtn.classList.add('cancel-btn');
     cancelBtn.textContent = 'Cancel';
+
+    const addDiv = document.createElement('div');
+    addDiv.classList.add('add-div');
+    addDiv.appendChild(addBtn);
+    addDiv.appendChild(cancelBtn);
+
     addTaskBtn.style.visibility = 'hidden';
     addTask.removeChild(addTaskBtn);
     addTask.textContent = "";
     addTask.appendChild(taskName);
-    addTask.appendChild(addBtn);
-    addTask.appendChild(cancelBtn);
+    addTask.appendChild(addDiv);
     
     addBtn.addEventListener('click', () => createTask(taskName.value))
     cancelBtn.addEventListener('click', clearAddTaskArea);
@@ -120,17 +130,27 @@ const userProjects = document.querySelector('.user-projects');
 
 function createProjectArea(){
     const projectName = document.createElement('input');
+    projectName.classList.add('input');
     projectName.type = 'text';
+
     const addBtn = document.createElement('button');
+    addBtn.classList.add('add-btn')
     addBtn.textContent = 'Add';
+
     const cancelBtn = document.createElement('button');
+    cancelBtn.classList.add('cancel-btn');
     cancelBtn.textContent = 'Cancel';
+
+    const addDiv = document.createElement('div');
+    addDiv.classList.add('add-div');
+    addDiv.appendChild(addBtn);
+    addDiv.appendChild(cancelBtn);
+
     addProjectBtn.style.visibility = 'hidden';
     addProject.removeChild(addProjectBtn);
     addProject.textContent = "";
     addProject.appendChild(projectName);
-    addProject.appendChild(addBtn);
-    addProject.appendChild(cancelBtn);
+    addProject.appendChild(addDiv);
 
     addBtn.addEventListener('click', () => createProject(projectName.value))
     cancelBtn.addEventListener('click', clearCreateProjectArea);
@@ -180,6 +200,9 @@ function addTaskToProject(newTask){
         if (project.name == projectName.textContent){
             project.addTask(newTask);
             console.log(project);
+        }
+        if(project.name == 'Inbox'){
+            project.addTask(newTask);
         }
         if (project.name == 'Today'){
             project.addTask(newTask);
