@@ -9,9 +9,10 @@ h1{
     color: #fefcfe;
     padding: 13px 0px;
     width: 100%;
-    text-align: center;
+    text-align: left;
     margin-bottom: 10px;
     font-size: 30px;
+    padding-left: 10px;
 }
 
 .main-content{
@@ -24,12 +25,12 @@ h1{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-   /* border-right: 1px solid #8ed0ac;*/
+    border-right: 3px solid #385f7a;/
 }
 
 .right-content{
     padding-left: 20px;
-    background-color: #ececec;
+    background-color: #fefcfe;
     width: 100%;
 }
 .default-projects{
@@ -57,11 +58,11 @@ h1{
 h3{
     color: #385f7a;
     padding: 0 10px;
+    margin: 10px;
 }
 
 .add-project-btn{
-    margin-left: 15px;
-    margin-top: 15px;
+    margin: 10px;
     border: none;
     display: flex;
     gap: 10px;
@@ -73,18 +74,18 @@ h3{
     width: 200px;
     padding: 8px 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
-.add-project-btn:hover{
+.add-project-btn:hover, .add-task-btn:hover{
     background-color:#385f7a;
     color: white;
 }
 
-
-.input{
+.input-project{
     width: 195px;
     height: 30px;
-    margin: 15px;
+    margin: 10px;
     border: 1px solid  #385f7a;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -101,6 +102,7 @@ h3{
     padding: 5px 0;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .add-btn{
@@ -111,21 +113,96 @@ h3{
     background-color: #680303;
     color: #fefcfe;
 }
+h2{
+    color: #385f7a;
+}
+.add-task{
+    display: flex;
+}
 
+.add-div-task{
+    margin: 10px;
+    display: flex;
+    gap: 10px;
+    height: 30px;
+}
+.add-task-btn{
+    margin: none;
+    border: none;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefcfe;
+    color: #385f7a;   
+    border: 1px solid  #385f7a;
+    width: 200px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-task{
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #385f7a;
+}
 .task-div{
     display: flex;
     justify-content: space-between;
-    width: 400px;
+    align-items: center;
+    width: 350px;
+    border-radius: 5px;
+    height: 30px;
+    background-color: #ececec;
+    margin-bottom: 10px;
+    color: #385f7a;
 }
-
+.task-div:hover{
+    transform: scale(1.02);
+}
+.task-container{
+    width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.checkbox{
+    cursor: pointer;
+}
+.checkbox::before{
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fefcfe;
+    border: 1px solid #385f7a;
+    border-radius: 2px;
+    width: 13px;
+    height: 13px;
+}
+.checkbox::after{
+    background-color: #385f7a;
+}
 .dueDate-btn{
-    width: 121px;
+    width: 110px;
+    height: 25px;
     border: none;
     cursor: pointer;
-    background-color: #fff;
     border-radius: 5px;
+    color: #385f7a;
+}
+.date-picker{
+    border: none;
+    background-color: #ececec;
+    border-radius: 5px;
+    height: 25px;
+    margin-right: 5px;
+    color: #385f7a;
+    cursor: pointer;
+    width: 105px;
 }
 
-.dueDate-btn:hover{
-    background-color: rgb(232, 227, 227);
+.dueDate-btn:hover, .date-picker:hover{
+    background-color: #c7c6c6;
 }
