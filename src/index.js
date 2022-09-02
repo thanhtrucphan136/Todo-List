@@ -180,16 +180,19 @@ function createProject(projectName){
     const projectInput = document.createElement('button');
     projectInput.type = 'text';
     projectInput.classList.add('project-btn');
+    projectInput.classList.add('project-btn-div');
     projectInput.textContent = project.name;
     clearCreateProjectArea();
     userProjects.appendChild(projectInput);
     loadProject();
 }
 const projectName = document.querySelector('h2');
+
 function loadProject(){
     const projectBtns = document.querySelectorAll('.project-btn');
     projectBtns.forEach((button) => {
         button.addEventListener('click', () => {
+            console.log(button.textContent);
             projectName.textContent = button.textContent;
             addTask.appendChild(addTaskBtn);
             display.innerHTML = '';

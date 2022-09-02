@@ -19,18 +19,19 @@ h1{
     display: flex;
 }
 .left-content{
-    background-color: #fefcfe;
+    /*background-color: #fefcfe;*/
+    background-color:  #385f7a;
     width: 300px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border-right: 3px solid #385f7a;/
+    /*border-right: 3px solid #385f7a;*/
 }
 
 .right-content{
     padding-left: 20px;
-    background-color: #fefcfe;
+    background-color:  #d9e0e4;
     width: 100%;
 }
 .default-projects{
@@ -38,25 +39,45 @@ h1{
     flex-direction: column;
     gap: 10px;
 }
-
-.project-btn{
+.logo{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 4px;
+}
+.icon{
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+}
+.project-btn-div{
+    width: 180px;
     border: none;
     border-radius: 5px;
     padding: 8px 10px;
-    background-color: #fefcfe;
-    color: rgb(26, 92, 107);
+    background-color: #385f7a;
+    color: #fefcfe;
     text-align: left;
     cursor: pointer;
     margin-left: 10px;
-    width: 200px;
+    display: flex;
 }
-.project-btn:hover{
-    background-color:#385f7a;
+.project-btn{
+    border: none;
+    background-color: inherit;
     color: white;
+    cursor: pointer;
+}
+.project-btn-div:hover{
+    background-color:#607b8f;
+    color: white;
+    transform: scale(1.04);
 }
 
 h3{
-    color: #385f7a;
+    color: #fefcfe;
     padding: 0 10px;
     margin: 10px;
 }
@@ -68,30 +89,30 @@ h3{
     gap: 10px;
     justify-content: center;
     align-items: center;
-    background-color: #fefcfe;
-    color: #385f7a;   
-    border: 1px solid  #385f7a;
+    background-color: #385f7a;
+    color: #fefcfe;   
+    border: 1px solid  #fefcfe;
     width: 200px;
     padding: 8px 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.add-project-btn:hover, .add-task-btn:hover{
-    background-color:#385f7a;
+.add-project-btn:hover, .add-task-btn:hover, .add-btn:hover, .cancel-btn:hover{
+    background-color:#607b8f;
     color: white;
+    transform: scale(1.02);
 }
-
 .input-project{
     width: 195px;
     height: 30px;
     margin: 10px;
-    border: 1px solid  #385f7a;
+    border: none;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 .add-div{
-    margin-left: 15px;
+    margin-left: 10px;
     display: flex;
     width: 200px;
     justify-content: space-between;
@@ -103,16 +124,12 @@ h3{
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: #385f7a;
+    color: #fefcfe;   
+    border: 1px solid  #fefcfe;
 }
 
-.add-btn{
-    background-color: #045b04;
-    color:#fefcfe
-}
-.cancel-btn{
-    background-color: #680303;
-    color: #fefcfe;
-}
+
 h2{
     color: #385f7a;
 }
@@ -156,9 +173,9 @@ h2{
     width: 350px;
     border-radius: 5px;
     height: 30px;
-    background-color: #ececec;
+    background-color: #385f7a;
     margin-bottom: 10px;
-    color: #385f7a;
+    color: #fefcfe
 }
 .task-div:hover{
     transform: scale(1.02);
@@ -190,19 +207,25 @@ h2{
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    color: #385f7a;
+    color: #fefcfe;
+    background-color: #385f7a;
 }
 .date-picker{
     border: none;
-    background-color: #ececec;
+    background-color: #385f7a;
     border-radius: 5px;
     height: 25px;
     margin-right: 5px;
-    color: #385f7a;
+    color: #fefcfe;
     cursor: pointer;
     width: 105px;
+    padding: 0px 5px;
 }
 
 .dueDate-btn:hover, .date-picker:hover{
-    background-color: #c7c6c6;
+    background-color: #607b8f
+}
+
+input[type='text']:focus{
+    outline: none;
 }
