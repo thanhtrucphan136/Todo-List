@@ -19,14 +19,12 @@ h1{
     display: flex;
 }
 .left-content{
-    /*background-color: #fefcfe;*/
     background-color:  #385f7a;
-    width: 300px;
+    min-width: 200px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /*border-right: 3px solid #385f7a;*/
 }
 
 .right-content{
@@ -53,7 +51,7 @@ h1{
     margin-right: 5px;
 }
 .project-btn-div{
-    width: 180px;
+    width: 150px;
     border: none;
     border-radius: 5px;
     padding: 8px 10px;
@@ -63,17 +61,26 @@ h1{
     cursor: pointer;
     margin-left: 10px;
     display: flex;
+    
 }
 .project-btn{
     border: none;
     background-color: inherit;
     color: white;
     cursor: pointer;
+    border: none;
+    width: 160px;
+    text-align: left;
+
 }
 .project-btn-div:hover{
     background-color:#607b8f;
     color: white;
-    transform: scale(1.04);
+}
+.project{
+    border: 1px solid #fefcfe;
+    margin-bottom: 10px;
+    margin-left: 15px;
 }
 
 h3{
@@ -83,16 +90,16 @@ h3{
 }
 
 .add-project-btn{
-    margin: 10px;
+    margin-left: 15px;
     border: none;
     display: flex;
     gap: 10px;
     justify-content: center;
     align-items: center;
-    background-color: #385f7a;
-    color: #fefcfe;   
-    border: 1px solid  #fefcfe;
-    width: 200px;
+    background-color: #fefefe;
+    color: #385f7a;   
+    border: 1px solid  #385f7a;
+    width: 160px;
     padding: 8px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -104,22 +111,22 @@ h3{
     transform: scale(1.02);
 }
 .input-project{
-    width: 195px;
+    width: 160px;
     height: 30px;
-    margin: 10px;
+    margin-left: 15px;
     border: none;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 .add-div{
-    margin-left: 10px;
+    margin-left: 15px;
     display: flex;
-    width: 200px;
+    width: 163px;
     justify-content: space-between;
 }
 
 .add-btn, .cancel-btn{
-    width: 95px;
+    width: 75px;
     padding: 5px 0;
     border: none;
     border-radius: 5px;
@@ -160,7 +167,7 @@ h2{
 }
 
 .input-task{
-    width: 200px;
+    width: 175px;
     height: 30px;
     border-radius: 5px;
     margin-top: 10px;
@@ -175,11 +182,12 @@ h2{
     height: 30px;
     background-color: #385f7a;
     margin-bottom: 10px;
-    color: #fefcfe
+    color: #fefcfe;
 }
 .task-div:hover{
     transform: scale(1.02);
 }
+
 .task-container{
     width: 200px;
     display: flex;
@@ -228,4 +236,24 @@ h2{
 
 input[type='text']:focus{
     outline: none;
+}
+.checked, .checked:hover{
+    background-color: #9fa0a0;
+    color: #696a6a;
+}
+
+.checked .dueDate-btn{
+    pointer-events: none;
+}
+
+.trashcan{
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.trashcan:hover{
+    transform: scale(1.3);
 }
