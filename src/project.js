@@ -1,5 +1,5 @@
 import {toDate, isToday, isThisWeek, subDays} from 'date-fns'
-import Task from './task';
+
 
 export default class Project{
     constructor(name){
@@ -34,7 +34,7 @@ export default class Project{
         this.tasks.push(newTask);
     }
     removeTask(taskName){
-        this.task = this.tasks.filter((task) => task.getTitle() !== taskName);
+        this.tasks = this.tasks.filter((task) => task.getTitle() != taskName);
     }
 
     getTodayTasks(){
