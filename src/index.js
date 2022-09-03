@@ -1,7 +1,7 @@
 import Task from "./task";
 import Project from "./project";
 import TodoList from "./todoList";
-import { add, format } from "date-fns";
+import {format } from "date-fns";
 
 const addTaskBtn = document.querySelector('.add-task-btn');
 addTaskBtn.addEventListener('click', addTaskArea);
@@ -67,6 +67,17 @@ function createTaskDiv(task){
     checkbox.name = 'task';
     checkbox.classList.add('checkbox');
 
+    checkbox.addEventListener('change', (e) => {
+        if (e.target.checked){
+            console.log(('checked'));
+            taskDiv.classList.add('checked');
+            dueDate.classList.add('checked');
+        } else {
+            taskDiv.classList.remove('checked');
+            dueDate.classList.remove('checked');
+        }
+    })
+
     const taskLabel = document.createElement('label');
     taskLabel.setAttribute('for','task')
     taskLabel.textContent = task.getTitle();
@@ -94,7 +105,6 @@ function createTaskDiv(task){
         const dueDateInput = document.createElement('input');
         dueDateInput.type = 'date';
         dueDateInput.classList.add('date-picker');
-        console.log(dueDateInput.defaultValue);
         dueDate.addEventListener('click', ()=> {
             dueDateDiv.removeChild(dueDate);
             dueDateDiv.appendChild(dueDateInput);
@@ -108,11 +118,30 @@ function createTaskDiv(task){
     
         clearAddTaskArea();
     }
+
+    const trashcan = document.createElement('img');
+    trashcan.classList.add('trashcan')
+    trashcan.src = './icon/delete-circle.png';
+
     taskDiv.appendChild(taskOnlyContainer);
     taskDiv.appendChild(dueDateDiv);
+    taskDiv.appendChild(trashcan);
     display.appendChild(taskDiv);
+
+    trashcan.addEventListener('click', () => {
+        display.removeChild(taskDiv);
+        removeTask(task.getTitle());
+    });
 }
 
+function removeTask(taskName){
+    listOfProjects.forEach((project) => {
+        if (project.getName() == projectName.textContent){
+            console.log(taskName);
+            project.removeTask(taskName);
+        }
+    })
+}
 function setNewDueDate(div, dueDate, input, task){
     console.log(input.value);
     let inputValue = input.value
@@ -181,6 +210,7 @@ function createProject(projectName){
     projectInput.type = 'text';
     projectInput.classList.add('project-btn');
     projectInput.classList.add('project-btn-div');
+    projectInput.classList.add('project')
     projectInput.textContent = project.name;
     clearCreateProjectArea();
     userProjects.appendChild(projectInput);
