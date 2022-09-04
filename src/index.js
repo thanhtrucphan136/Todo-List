@@ -13,8 +13,14 @@ const todoList = new TodoList();
 const listOfProjects = todoList.getProjects();
 console.log(listOfProjects);
 
+function addToStorage(){
+    window.localStorage.setItem('projects', JSON.stringify(todoList)); 
+}
 
-addProjectToStorage();
+if(!localStorage.getItem('projects')){
+    addToStorage();
+}
+
 function addTaskArea(){
     const taskName = document.createElement('input');
     taskName.classList.add('input-task');
@@ -114,6 +120,7 @@ function createTaskDiv(task){
 
         dueDateInput.addEventListener('input', () => {
             setNewDueDate(dueDateDiv, dueDate, dueDateInput, task)
+            addToStorage();
             loadProject();
         });
         
@@ -207,7 +214,7 @@ function createProject(projectName){
     }
     const project = new Project(projectName);
     todoList.addProject(project);
-    window.localStorage.setItem('projects', JSON.stringify(todoList));
+    addToStorage();
     console.log(listOfProjects);
     const projectInput = document.createElement('button');
     projectInput.type = 'text';
@@ -235,6 +242,7 @@ function loadProject(){
         display.innerHTML = '';
         addActiveClass(button);
         getProjectTasks();
+        addToStorage();
         });
     });
 }
@@ -245,6 +253,7 @@ function addTaskToProject(newTask){
         if (project.name == projectName.textContent){
             project.addTask(newTask);
             console.log(project);
+            //addToStorage();
         }
         if(project.name == 'Inbox'){
             project.addTask(newTask);
@@ -262,6 +271,7 @@ function addTaskToProject(newTask){
 function getProjectTasks(){
     let projectTasks = [];
     listOfProjects.forEach((project) => {
+        //addToStorage();
         if (project.getName() == projectName.textContent){
             console.log(projectName.textContent);
             if (project.getName() == 'Today'){
@@ -276,7 +286,6 @@ function getProjectTasks(){
                 console.log(project);
                 projectTasks = project.getTasks();
             }
-            
             projectTasks.forEach((task) => {
                 createTaskDiv(task)
             });
