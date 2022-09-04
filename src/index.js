@@ -219,13 +219,14 @@ function createProject(projectName){
 const projectName = document.querySelector('h2');
 
 function loadProject(){
-    const projectBtns = document.querySelectorAll('.project-btn');
+    const projectBtns = document.querySelectorAll('.project-btn-div');
     projectBtns.forEach((button) => {
         button.addEventListener('click', () => {
             console.log(button.textContent);
             projectName.textContent = button.textContent;
             addTask.appendChild(addTaskBtn);
             display.innerHTML = '';
+            addActiveClass(button);
             getProjectTasks();
         });
     });
@@ -274,5 +275,17 @@ function getProjectTasks(){
     })
 }
 
+function addActiveClass(activeBtn){
+    const buttons = document.querySelectorAll('.project-btn-div');
+    buttons.forEach((button) => {
+        if(button != this){
+            button.classList.remove('active');
+        }
+    });
+
+    activeBtn.classList.add('active');
+}
+
+addActiveClass(document.querySelector('.project-btn-div'));
 
 
