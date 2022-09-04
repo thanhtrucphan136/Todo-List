@@ -69,7 +69,7 @@ h1{
     color: white;
     cursor: pointer;
     border: none;
-    width: 160px;
+    /*width: 160px;*/
     text-align: left;
 }
 .project-btn-div:hover{

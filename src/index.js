@@ -13,6 +13,8 @@ const todoList = new TodoList();
 const listOfProjects = todoList.getProjects();
 console.log(listOfProjects);
 
+
+addProjectToStorage();
 function addTaskArea(){
     const taskName = document.createElement('input');
     taskName.classList.add('input-task');
@@ -205,6 +207,7 @@ function createProject(projectName){
     }
     const project = new Project(projectName);
     todoList.addProject(project);
+    window.localStorage.setItem('projects', JSON.stringify(todoList));
     console.log(listOfProjects);
     const projectInput = document.createElement('button');
     projectInput.type = 'text';
@@ -222,12 +225,16 @@ function loadProject(){
     const projectBtns = document.querySelectorAll('.project-btn-div');
     projectBtns.forEach((button) => {
         button.addEventListener('click', () => {
-            console.log(button.textContent);
+        const hasChildButton = button.querySelector('.project-btn');
+        if (hasChildButton != null){
+            projectName.textContent = hasChildButton.textContent;
+        }else{
             projectName.textContent = button.textContent;
-            addTask.appendChild(addTaskBtn);
-            display.innerHTML = '';
-            addActiveClass(button);
-            getProjectTasks();
+        }
+        addTask.appendChild(addTaskBtn);
+        display.innerHTML = '';
+        addActiveClass(button);
+        getProjectTasks();
         });
     });
 }
@@ -248,6 +255,7 @@ function addTaskToProject(newTask){
         if (project.name == 'This Week'){
             project.addTask(newTask);
         }
+
     });
 }
 
@@ -255,6 +263,7 @@ function getProjectTasks(){
     let projectTasks = [];
     listOfProjects.forEach((project) => {
         if (project.getName() == projectName.textContent){
+            console.log(projectName.textContent);
             if (project.getName() == 'Today'){
                 projectTasks = project.getTodayTasks();
                 addTask.removeChild(addTaskBtn);
