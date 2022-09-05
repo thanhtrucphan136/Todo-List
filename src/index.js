@@ -2,6 +2,7 @@ import Task from "./task";
 import Project from "./project";
 import TodoList from "./todoList";
 import {format } from "date-fns";
+import {getName} from "./project";
 
 const addTaskBtn = document.querySelector('.add-task-btn');
 addTaskBtn.addEventListener('click', addTaskArea);
@@ -13,12 +14,8 @@ const todoList = new TodoList();
 const listOfProjects = todoList.getProjects();
 console.log(listOfProjects);
 
-function addToStorage(){
+function updateStorage(){
     window.localStorage.setItem('projects', JSON.stringify(todoList)); 
-}
-
-if(!localStorage.getItem('projects')){
-    addToStorage();
 }
 
 function addTaskArea(){
@@ -63,6 +60,7 @@ function createTask(taskName){
     console.log(task);
     addTaskToProject(task);
     createTaskDiv(task);
+    //updateStorage();
 }
 
 function createTaskDiv(task){
@@ -120,7 +118,7 @@ function createTaskDiv(task){
 
         dueDateInput.addEventListener('input', () => {
             setNewDueDate(dueDateDiv, dueDate, dueDateInput, task)
-            addToStorage();
+            updateStorage();
             loadProject();
         });
         
@@ -148,6 +146,7 @@ function removeTask(taskName){
         if (project.getName() == projectName.textContent){
             console.log(taskName);
             project.removeTask(taskName);
+            //updateStorage();
         }
     })
 }
@@ -214,7 +213,7 @@ function createProject(projectName){
     }
     const project = new Project(projectName);
     todoList.addProject(project);
-    addToStorage();
+    updateStorage();
     console.log(listOfProjects);
     const projectInput = document.createElement('button');
     projectInput.type = 'text';
@@ -242,7 +241,7 @@ function loadProject(){
         display.innerHTML = '';
         addActiveClass(button);
         getProjectTasks();
-        addToStorage();
+        //updateStorage();
         });
     });
 }
@@ -253,7 +252,6 @@ function addTaskToProject(newTask){
         if (project.name == projectName.textContent){
             project.addTask(newTask);
             console.log(project);
-            //addToStorage();
         }
         if(project.name == 'Inbox'){
             project.addTask(newTask);
@@ -264,14 +262,13 @@ function addTaskToProject(newTask){
         if (project.name == 'This Week'){
             project.addTask(newTask);
         }
-
+        //updateStorage();
     });
 }
 
 function getProjectTasks(){
     let projectTasks = [];
     listOfProjects.forEach((project) => {
-        //addToStorage();
         if (project.getName() == projectName.textContent){
             console.log(projectName.textContent);
             if (project.getName() == 'Today'){
@@ -290,6 +287,7 @@ function getProjectTasks(){
                 createTaskDiv(task)
             });
         }
+        //updateStorage();
     })
 }
 
@@ -306,4 +304,25 @@ function addActiveClass(activeBtn){
 
 addActiveClass(document.querySelector('.project-btn-div'));
 
-
+function reloadPage(){
+    let getStorage = JSON.parse(window.localStorage.getItem('projects'));
+    getStorage = Object.values(getStorage);
+    getStorage.forEach((projects) => {
+        projects = Object.values(projects);
+        projects.forEach((project) => {
+            
+            const savedProjectName = Object.values(project)[0];
+            const savedTasks = Object.values(project)[1];
+            console.log(savedProjectName);
+            console.log(savedTasks);
+            if (savedProjectName == 'Inbox' || savedProjectName == 'Today' || savedProjectName == 'This Week') return;
+            createProject(savedProjectName);
+        })
+        
+    })
+}
+if(!localStorage.getItem('projects')){
+    updateStorage();
+}
+//window.onbeforeunload = updateStorage;
+reloadPage();
