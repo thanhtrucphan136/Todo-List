@@ -18,6 +18,10 @@ function updateStorage(){
     window.localStorage.setItem('projects', JSON.stringify(todoList)); 
 }
 
+if(!(window.localStorage.getItem('projects'))){
+    updateStorage();
+}
+
 function addTaskArea(){
     const taskName = document.createElement('input');
     taskName.classList.add('input-task');
@@ -60,7 +64,7 @@ function createTask(taskName){
     console.log(task);
     addTaskToProject(task);
     createTaskDiv(task);
-    //updateStorage();
+    updateStorage();
 }
 
 function createTaskDiv(task){
@@ -241,7 +245,7 @@ function loadProject(){
         display.innerHTML = '';
         addActiveClass(button);
         getProjectTasks();
-        //updateStorage();
+        updateStorage();
         });
     });
 }
@@ -304,25 +308,30 @@ function addActiveClass(activeBtn){
 
 addActiveClass(document.querySelector('.project-btn-div'));
 
+
 function reloadPage(){
     let getStorage = JSON.parse(window.localStorage.getItem('projects'));
-    getStorage = Object.values(getStorage);
-    getStorage.forEach((projects) => {
+    const getStorageArray = Object.values(getStorage);
+    getStorageArray.forEach((projects) => {
         projects = Object.values(projects);
         projects.forEach((project) => {
             
             const savedProjectName = Object.values(project)[0];
-            const savedTasks = Object.values(project)[1];
             console.log(savedProjectName);
-            console.log(savedTasks);
+            
             if (savedProjectName == 'Inbox' || savedProjectName == 'Today' || savedProjectName == 'This Week') return;
             createProject(savedProjectName);
+            /*
+            const savedTasks = Object.values(project)[1];
+            console.log(savedTasks);
+            savedTasks.forEach((task) => {
+                const savedTaskName = Object.values(task)[0];
+                console.log(savedTaskName);
+                createTask(savedTaskName);
+            })*/
         })
         
     })
 }
-if(!localStorage.getItem('projects')){
-    updateStorage();
-}
-//window.onbeforeunload = updateStorage;
+
 reloadPage();
