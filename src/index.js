@@ -2,7 +2,7 @@ import Task from "./task";
 import Project from "./project";
 import TodoList from "./todoList";
 import {format } from "date-fns";
-import {getName} from "./project";
+//import {getName} from "./project";
 
 const addTaskBtn = document.querySelector('.add-task-btn');
 addTaskBtn.addEventListener('click', addTaskArea);
@@ -11,16 +11,16 @@ addTask.classList.add('add-task');
 const display = document.querySelector('.display');
 
 const todoList = new TodoList();
-const listOfProjects = todoList.getProjects();
-console.log(listOfProjects);
-
+let listOfProjects = todoList.getProjects();
+console.log(typeof listOfProjects);
+/*
 function updateStorage(){
-    window.localStorage.setItem('projects', JSON.stringify(todoList)); 
+    window.localStorage.setItem('projects', JSON.stringify(todoList.projects)); 
 }
 
 if(!(window.localStorage.getItem('projects'))){
     updateStorage();
-}
+}*/
 
 function addTaskArea(){
     const taskName = document.createElement('input');
@@ -64,7 +64,7 @@ function createTask(taskName){
     console.log(task);
     addTaskToProject(task);
     createTaskDiv(task);
-    updateStorage();
+    //updateStorage();
 }
 
 function createTaskDiv(task){
@@ -217,14 +217,17 @@ function createProject(projectName){
     }
     const project = new Project(projectName);
     todoList.addProject(project);
-    updateStorage();
+    createProjectDiv(project.getName());
+    //updateStorage();
     console.log(listOfProjects);
+}
+function createProjectDiv(projectName){
     const projectInput = document.createElement('button');
     projectInput.type = 'text';
     projectInput.classList.add('project-btn');
     projectInput.classList.add('project-btn-div');
     projectInput.classList.add('project')
-    projectInput.textContent = project.name;
+    projectInput.textContent = projectName;
     clearCreateProjectArea();
     userProjects.appendChild(projectInput);
     loadProject();
@@ -245,7 +248,7 @@ function loadProject(){
         display.innerHTML = '';
         addActiveClass(button);
         getProjectTasks();
-        updateStorage();
+        //updateStorage();
         });
     });
 }
@@ -291,7 +294,7 @@ function getProjectTasks(){
                 createTaskDiv(task)
             });
         }
-        //updateStorage();
+        updateStorage();
     })
 }
 
@@ -308,30 +311,28 @@ function addActiveClass(activeBtn){
 
 addActiveClass(document.querySelector('.project-btn-div'));
 
-
+/*
 function reloadPage(){
-    let getStorage = JSON.parse(window.localStorage.getItem('projects'));
-    const getStorageArray = Object.values(getStorage);
-    getStorageArray.forEach((projects) => {
-        projects = Object.values(projects);
-        projects.forEach((project) => {
-            
-            const savedProjectName = Object.values(project)[0];
-            console.log(savedProjectName);
-            
-            if (savedProjectName == 'Inbox' || savedProjectName == 'Today' || savedProjectName == 'This Week') return;
-            createProject(savedProjectName);
-            /*
-            const savedTasks = Object.values(project)[1];
-            console.log(savedTasks);
-            savedTasks.forEach((task) => {
-                const savedTaskName = Object.values(task)[0];
-                console.log(savedTaskName);
-                createTask(savedTaskName);
-            })*/
-        })
+    const projectsFromStorage = (JSON.parse(localStorage.getItem('projects'))) || [];
+    console.log(typeof projectsFromStorage);
+    
+    listOfProjects = projectsFromStorage;
+    console.log(typeof listOfProjects);
+    projectsFromStorage.forEach((project) => {
+        console.log(project);
+        const savedProjectName = Object.values(project)[0];
+        console.log(savedProjectName);
+        if (savedProjectName == 'Inbox' || savedProjectName == 'Today' || savedProjectName == 'This Week') return;
+        createProjectDiv(savedProjectName);
         
+        const savedTasks = Object.values(project)[1];
+        console.log(savedTasks);
+        savedTasks.forEach((task) => {
+            const savedTaskName = Object.values(task)[0];
+            console.log(savedTaskName);
+            createTask(savedTaskName);
+        })
     })
 }
 
-reloadPage();
+window.onload = reloadPage();*/
