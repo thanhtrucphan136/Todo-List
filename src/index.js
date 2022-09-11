@@ -12,7 +12,7 @@ const display = document.querySelector('.display');
 
 const todoList = new TodoList();
 let listOfProjects = todoList.getProjects();
-console.log(typeof listOfProjects);
+//console.log(typeof listOfProjects);
 /*
 function updateStorage(){
     window.localStorage.setItem('projects', JSON.stringify(todoList.projects)); 
@@ -122,7 +122,7 @@ function createTaskDiv(task){
 
         dueDateInput.addEventListener('input', () => {
             setNewDueDate(dueDateDiv, dueDate, dueDateInput, task)
-            updateStorage();
+            //updateStorage();
             loadProject();
         });
         
@@ -294,7 +294,7 @@ function getProjectTasks(){
                 createTaskDiv(task)
             });
         }
-        updateStorage();
+        //updateStorage();
     })
 }
 
