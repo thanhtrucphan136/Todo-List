@@ -40,6 +40,11 @@ if (storedTodoList) {
   });
 }
 
+window.onload = function () {
+  document.querySelector(".inbox-btn").click();
+  console.log("clicked");
+};
+
 function addTaskArea() {
   const taskName = document.createElement("input");
   taskName.classList.add("input-task");
@@ -87,6 +92,7 @@ function createTask(taskName, dueDate) {
   addTaskToProject(task);
   createTaskDiv(task);
   console.log(todoList);
+  loadProject();
   updateStorage();
 }
 
