@@ -34,7 +34,7 @@ if (storedTodoList) {
     console.log([project]);
     createProject(project.name);
     project.tasks.forEach((task) => {
-      createTask(task.title, task.dueDate);
+      createTask(task.title, task.dueDate, task.checked);
     });
   });
 }
@@ -77,7 +77,7 @@ function clearAddTaskArea() {
   addTaskBtn.style.visibility = "visible";
   addTask.appendChild(addTaskBtn);
 }
-function createTask(taskName, dueDate) {
+function createTask(taskName, dueDate, checked) {
   if (taskName == "") {
     alert("Please enter task name");
     return;
@@ -86,7 +86,7 @@ function createTask(taskName, dueDate) {
   if (dueDate == "none") {
     task = new Task(taskName);
   } else {
-    task = new Task(taskName, dueDate);
+    task = new Task(taskName, dueDate, checked);
   }
   console.log(task);
   addTaskToProject(task);
@@ -111,9 +111,13 @@ function createTaskDiv(task) {
       console.log("checked");
       taskDiv.classList.add("checked");
       dueDate.classList.add("checked");
+      task.checked = true;
+      updateStorage();
     } else {
       taskDiv.classList.remove("checked");
       dueDate.classList.remove("checked");
+      task.checked = false;
+      updateStorage();
     }
   });
 
@@ -140,6 +144,12 @@ function createTaskDiv(task) {
     taskDiv.appendChild(taskOnlyContainer);
     taskDiv.appendChild(dueDateDiv);
     display.appendChild(taskDiv);
+    if (task.checked == true) {
+      taskDiv.classList.add("checked");
+      dueDate.classList.add("checked");
+      checkbox.checked = true;
+      console.log("checked");
+    }
     return;
   } else {
     const dueDateInput = document.createElement("input");
@@ -156,6 +166,12 @@ function createTaskDiv(task) {
     });
 
     clearAddTaskArea();
+  }
+  if (task.checked == true) {
+    taskDiv.classList.add("checked");
+    dueDate.classList.add("checked");
+    checkbox.checked = true;
+    console.log("checked");
   }
 
   const trashcan = document.createElement("img");
@@ -175,11 +191,8 @@ function createTaskDiv(task) {
 
 function removeTask(taskName) {
   listOfProjects.forEach((project) => {
-    if (project.getName() == projectName.textContent) {
-      console.log(taskName);
-      project.removeTask(taskName);
-      updateStorage();
-    }
+    project.removeTask(taskName);
+    updateStorage();
   });
 }
 function setNewDueDate(div, dueDate, input, task) {
@@ -243,7 +256,6 @@ function createProject(projectName) {
     projectName == "Today" ||
     projectName == "This Week"
   ) {
-    //alert("This project has already created");
     return;
   }
   const project = new Project(projectName);

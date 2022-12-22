@@ -1,8 +1,9 @@
 import { toDate, isToday, isThisWeek, subDays } from "date-fns";
 export default class Task {
-  constructor(title, dueDate = "No due date") {
+  constructor(title, dueDate = "No due date", checked = false) {
     this.title = title;
     this.dueDate = dueDate;
+    this.checked = checked;
   }
 
   setTitle(title) {
