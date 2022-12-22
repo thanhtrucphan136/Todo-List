@@ -34,7 +34,6 @@ if (storedTodoList) {
     console.log([project]);
     createProject(project.name);
     project.tasks.forEach((task) => {
-      console.log(task.title);
       createTask(task.title, task.dueDate);
     });
   });
@@ -44,6 +43,7 @@ window.onload = function () {
   document.querySelector(".inbox-btn").click();
   console.log("clicked");
 };
+loadProject();
 
 function addTaskArea() {
   const taskName = document.createElement("input");
@@ -92,7 +92,7 @@ function createTask(taskName, dueDate) {
   addTaskToProject(task);
   createTaskDiv(task);
   console.log(todoList);
-  loadProject();
+  //loadProject();
   updateStorage();
 }
 
@@ -196,6 +196,8 @@ function setNewDueDate(div, dueDate, input, task) {
   console.log(task.formatDate());
   div.removeChild(input);
   div.appendChild(dueDate);
+
+  addTaskToProject(task);
   updateStorage();
 }
 
@@ -281,47 +283,61 @@ function loadProject() {
     });
   });
 }
+
 function addTaskToProject(newTask) {
-  listOfProjects.forEach((project) => {
-    if (project.name == projectName.textContent) {
-      project.addTask(newTask);
-      console.log(project);
-    }
-    if (project.name == "Inbox") {
-      project.addTask(newTask);
-    }
-    if (project.name == "Today") {
-      project.addTask(newTask);
-    }
-    if (project.name == "This Week") {
-      project.addTask(newTask);
-    }
-    updateStorage();
-  });
+  //Find the "Inbox" project
+  const inbox = listOfProjects.find((project) => project.name === "Inbox");
+  inbox.addTask(newTask);
+  inbox.sortTasksByDueDate();
+
+  //Find the User-created Project
+  const userCreated = listOfProjects.find(
+    (project) => project.name == projectName.textContent
+  );
+  userCreated.addTask(newTask);
+  userCreated.sortTasksByDueDate();
+
+  // Find the "Today" project
+  const today = listOfProjects.find((p) => p.name === "Today");
+  // If the new task is due today, add it to the "Today" project
+  if (newTask.isDueToday()) {
+    today.addTask(newTask);
+    today.sortTasksByDueDate();
+  }
+
+  // Find the "This Week" project
+  const thisWeek = listOfProjects.find((p) => p.name === "This Week");
+  // If the new task is due this week, add it to the "This Week" project
+  if (newTask.isDueThisWeek()) {
+    thisWeek.addTask(newTask);
+    thisWeek.sortTasksByDueDate();
+  }
+  updateStorage();
 }
 
 function getProjectTasks() {
+  console.log("in get project tasks");
   let projectTasks = [];
   listOfProjects.forEach((project) => {
     if (project.getName() == projectName.textContent) {
       console.log(projectName.textContent);
+
       if (project.getName() == "Today") {
-        projectTasks = project.getTodayTasks();
-        addTask.removeChild(addTaskBtn);
         console.log(project);
+        //projectTasks = project.getTodayTasks();
+        addTask.removeChild(addTaskBtn);
       } else if (project.getName() == "This Week") {
-        projectTasks = project.getThisWeekTasks();
+        //projectTasks = project.getThisWeekTasks();
         addTask.removeChild(addTaskBtn);
         console.log(project);
-      } else {
-        console.log(project);
-        projectTasks = project.getTasks();
       }
+      console.log(project);
+      projectTasks = project.getTasks();
+
       projectTasks.forEach((task) => {
         createTaskDiv(task);
       });
       updateStorage();
-      console.log(todoList);
     }
   });
 }
