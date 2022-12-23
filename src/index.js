@@ -31,8 +31,8 @@ if (storedTodoList) {
   console.log(storedTodoList);
 
   storedTodoList.projects.forEach((project) => {
-    console.log([project]);
     createProject(project.name);
+    console.log(project.name);
     project.tasks.forEach((task) => {
       createTask(task.title, task.dueDate, task.checked);
     });
@@ -209,9 +209,15 @@ function setNewDueDate(div, dueDate, input, task) {
   console.log(task.formatDate());
   div.removeChild(input);
   div.appendChild(dueDate);
-
   addTaskToProject(task);
   updateStorage();
+  console.log(task);
+  /*
+  if (!task.isDueToday()) {
+    console.log(task.title);
+    removeTask(task.title);
+  }*/
+  updateTasksProject(task);
 }
 
 function createProjectArea() {
@@ -316,7 +322,6 @@ function addTaskToProject(newTask) {
     today.addTask(newTask);
     today.sortTasksByDueDate();
   }
-
   // Find the "This Week" project
   const thisWeek = listOfProjects.find((p) => p.name === "This Week");
   // If the new task is due this week, add it to the "This Week" project
@@ -336,10 +341,8 @@ function getProjectTasks() {
 
       if (project.getName() == "Today") {
         console.log(project);
-        //projectTasks = project.getTodayTasks();
         addTask.removeChild(addTaskBtn);
       } else if (project.getName() == "This Week") {
-        //projectTasks = project.getThisWeekTasks();
         addTask.removeChild(addTaskBtn);
         console.log(project);
       }
@@ -352,6 +355,27 @@ function getProjectTasks() {
       updateStorage();
     }
   });
+}
+
+function updateTasksProject(oldTask) {
+  const today = listOfProjects.find((p) => p.name === "Today");
+  const todayTasks = today.tasks;
+  if (!oldTask.isDueToday()) {
+    todayTasks.find((task) => {
+      task.title === oldTask.title;
+      today.removeTask(task.title);
+    });
+  }
+  // Find the "This Week" project
+  const thisWeek = listOfProjects.find((p) => p.name === "This Week");
+  const thisWeekTasks = thisWeek.tasks;
+  if (!oldTask.isDueThisWeek()) {
+    thisWeekTasks.find((task) => {
+      task.title === oldTask.title;
+      thisWeek.removeTask(task.title);
+    });
+  }
+  updateStorage();
 }
 
 function addActiveClass(activeBtn) {
