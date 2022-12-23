@@ -260,3 +260,21 @@ input[type='text']:focus{
 .trashcan:hover{
     transform: scale(1.3);
 }
+
+footer{
+    color:#385f7a;
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    align-self: end;
+    margin-top: 670px;
+ }
+.github{
+     width: 20px;
+     height: 20px;
+     transition: transform 0.3s ease-in-out;
+     margin-left: 3px;
+}
+.github:hover{
+     transform: scale(1.5) rotate(360deg);
+}
