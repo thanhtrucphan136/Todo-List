@@ -28,20 +28,31 @@ let listOfProjects = todoList.getProjects();
 const storedTodoList = JSON.parse(window.localStorage.getItem("todoList"));
 
 if (storedTodoList) {
-  console.log(storedTodoList);
-
   storedTodoList.projects.forEach((project) => {
-    createProject(project.name);
-    console.log(project.name);
-    project.tasks.forEach((task) => {
-      createTask(task.title, task.dueDate, task.checked);
-    });
+    // Only create if doesn't exist (prevents duplicates)
+    if (!todoList.getProjects().some((p) => p.name === project.name)) {
+      createProject(project.name);
+    }
+
+    const existingProject = todoList
+      .getProjects()
+      .find((p) => p.name === project.name);
+    if (existingProject) {
+      project.tasks.forEach((task) => {
+        // Only add if task doesn't exist (prevents duplicates)
+        if (!existingProject.tasks.some((t) => t.title === task.title)) {
+          const newTask = new Task(task.title, task.dueDate, task.checked);
+          existingProject.addTask(newTask);
+        }
+      });
+      existingProject.sortTasksByDueDate();
+    }
   });
 }
 
 window.onload = function () {
   document.querySelector(".inbox-btn").click();
-  console.log("clicked");
+  console.log("inbox clicked haha");
 };
 loadProject();
 
@@ -373,6 +384,7 @@ function updateTasksProject(oldTask) {
     thisWeekTasks.find((task) => {
       task.title === oldTask.title;
       thisWeek.removeTask(task.title);
+      npxnp;
     });
   }
   updateStorage();
